@@ -1,15 +1,5 @@
-# peculiarnewbie
+## Hi! welcome to my github
 
-To install dependencies:
+I build whatever things come to mind, I watch way too much Youtube, and I can't function without [Obsidian](https://obsidian.md/)
 
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.2.2. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+[![Bolt's GitHub stats](https://github-readme-stats.vercel.app/api?username=peculiarnewbie)](https://github.com/peculiarnewbie/github-readme-stats)
