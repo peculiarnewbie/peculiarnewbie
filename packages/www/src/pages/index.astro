@@ -1,9 +1,13 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import "../app.css";
+import { getCollection } from "astro:content";
+
+import GithubIcon from "../../public/icons/github-icon.svg";
+import LinkIcon from "../../public/icons/link-icon.svg";
+
+const projects = await getCollection("project");
 ---
 
 <!doctype html>
@@ -28,6 +32,52 @@ import "../app.css";
                     class="flex min-h-screen flex-col pt-24 lg:w-1/2 lg:py-24"
                 >
                     <div class="h-96">heyy</div>
+                    <h1 class="text-3xl font-black pb-4">Projects</h1>
+                    <div class="flex flex-col gap-6">
+
+                    {
+                        projects.map((project) => (
+                            <div class="flex gap-4">
+                                <div class="flex-col max-w-44">
+                                    <img
+                                        class="py-3 px-1"
+                                        width={720}
+                                        height={360}
+                                        src={project.data.image}
+                                        alt=""
+                                    />
+                                    <div class="flex gap-8 justify-center">
+                                        <a
+                                            href={project.data.githubUrl}
+                                            target="_blank"
+                                        >
+                                            <GithubIcon fill={"#fff"} />
+                                        </a>
+                                        <a
+                                            href={project.data.url}
+                                            target="_blank"
+                                        >
+                                            <LinkIcon fill={"#fff"} />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-3 justify-baseline">
+                                    <h4 class="font-bold">
+                                        {project.data.title}
+                                    </h4>
+                                    <p class="text-sm">{project.body}</p>
+                                    <div class="flex gap-2">
+                                    {project.data.tags ? (
+                                        project.data.tags.map((tag) => (
+                                            <p class="text-sm">{tag}</p>
+                                        ))
+                                    ) : <></>}
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    }
+                    </div>
                     <div class="h-96">heyy</div>
                     <div class="h-96">heyy</div>
                     <div class="h-96">heyy</div>
