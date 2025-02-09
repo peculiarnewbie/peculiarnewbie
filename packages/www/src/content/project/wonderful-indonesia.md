@@ -3,7 +3,7 @@ title: "Wonderful Indonesia"
 tags:
     - Svelte
     - Threlte
-    - Javascript
+    - Typescript
 image: "project/wonderful-indonesia.webp"
 url: "https://wonderful-indonesia-rho.vercel.app/"
 githubUrl: "https://github.com/peculiarnewbie/wonderful-indonesia"

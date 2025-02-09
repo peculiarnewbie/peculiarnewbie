@@ -8,6 +8,7 @@ import GithubIcon from "../../public/icons/github-icon.svg";
 import LinkIcon from "../../public/icons/link-icon.svg";
 
 const projects = await getCollection("project");
+const expeciences = await getCollection("experience");
 ---
 
 <!doctype html>
@@ -32,9 +33,32 @@ const projects = await getCollection("project");
                     class="flex min-h-screen flex-col pt-24 lg:w-1/2 lg:py-24"
                 >
                     <div class="h-96">heyy</div>
-                    <h1 class="text-3xl font-black pb-4">Projects</h1>
+                    <h1 class="text-3xl font-black pb-4">Experience</h1>
                     <div class="flex flex-col gap-6">
-
+                        {
+                            expeciences.map((experience) => (
+                                <a href={experience.data.url} target="_blank" class="flex gap-4">
+                                    <div class="basis-44">
+                                    <p>{experience.data.title}</p>
+                                    <p>{experience.data.workPlace}</p>
+                                        <p>{experience.data.startDate.getFullYear()} - Present</p>
+                                    </div>
+                                    <div class="basis-1 grow flex flex-col gap-3">
+                                        <p class="text-sm">{experience.body}</p>
+                                        <div class="flex flex-wrap gap-2">
+                                        {experience.data.tags ? (
+                                            experience.data.tags.map((tag) => (
+                                                <p class="text-sm">{tag}</p>
+                                            ))
+                                        ) : <></>}
+                                        </div>
+                                    </div>
+                                </a>
+                                ))
+                        }
+                        </div>
+                    <h1 class="text-3xl font-black pb-4 pt-8">Projects</h1>
+                    <div class="flex flex-col gap-6">
                     {
                         projects.map((project) => (
                             <div class="flex gap-4">
