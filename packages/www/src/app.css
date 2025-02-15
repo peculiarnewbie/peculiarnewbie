@@ -1,15 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@font-face {
+/* @font-face {
     font-family: CommitMono;
     font-style: normal;
     font-weight: 200 700;
     font-display: swap;
     src: url("/fonts/CommitMonoVariableFont.woff2") format("woff2");
 }
+    */
 
 @theme {
-    --font-display: "CommitMono";
+    --font-display: "Sora";
 }
