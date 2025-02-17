@@ -43,11 +43,11 @@ const expeciences = await getCollection("experience");
                             expeciences.map((experience) => (
                                 <div class="flex gap-4 ">
                                     <div class="basis-40">
-                                    <a href="https://stairwaygames.com" target="_blank" class="flex font-bold  hover:text-indigo-300">{experience.data.workPlace} <span><Arrow width={12} height={15} fill={"#fff"} /></span></a>
+                                        <p class="font-bold text-lg">{experience.data.title}</p>
                                     <p class="font-light text-white/70 pt-1">{experience.data.startDate.getFullYear()} - Present</p>
                                     </div>
                                     <div class="basis-1 grow flex flex-col gap-3">
-                                        <p class="font-bold text-lg">{experience.data.title}</p>
+                                    <a href="https://stairwaygames.com" target="_blank" class="flex font-bold  hover:text-indigo-300">{experience.data.workPlace} <span><Arrow width={12} height={15} fill={"#fff"} /></span></a>
                                         <p class="text-sm">{experience.body}</p>
                                         <div class="flex flex-wrap gap-2">
                                         {experience.data.tags ? (
@@ -62,7 +62,7 @@ const expeciences = await getCollection("experience");
                         }
                         </div>
                     <h1 class="text-xl font-light pb-4 pt-12 tracking-widest">PROJECTS</h1>
-                    <div class="flex flex-col gap-6">
+                    <div class="flex flex-col gap-8">
                     {
                         projects.map((project) => (
                             <div class="flex gap-4">
@@ -113,10 +113,7 @@ const expeciences = await getCollection("experience");
                         ))
                     }
                     </div>
-                    <div class="h-96">heyy</div>
-                    <div class="h-96">heyy</div>
-                    <div class="h-96">heyy</div>
-                    <div class="h-96">heyy</div>
+                    <h1 class="text-xl font-light pb-4 pt-12 tracking-widest">BLOG</h1>
                 </main>
             </div>
         </div>
