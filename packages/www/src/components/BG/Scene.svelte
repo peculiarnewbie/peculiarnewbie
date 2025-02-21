@@ -61,12 +61,13 @@
     });
 </script>
 
-<T.PerspectiveCamera
+<T.OrthographicCamera
     makeDefault
     near={0.01}
-    position={[0, 8, 3]}
-    rotation={[-Math.PI / 2.4, 0, 0]}
-></T.PerspectiveCamera>
+    position={[0, 2, 0]}
+    zoom={100}
+    rotation={[-Math.PI / 2, 0, 0]}
+></T.OrthographicCamera>
 
 <T.PointLight
     intensity={3}

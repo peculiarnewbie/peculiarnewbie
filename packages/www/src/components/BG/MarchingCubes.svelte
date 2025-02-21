@@ -68,7 +68,7 @@
                     break;
             }
         }
-        marchingCubes.update();
+        marchingCubes.update({ x: -3, y: 0, z: 0 });
     });
 
     // cleanup default material if marchingCubes.material has been set to something else

@@ -796,7 +796,7 @@ class MarchingCubes extends Mesh {
             }
         };
 
-        this.update = function () {
+        this.update = function (offset = { x: 0, y: 0, z: 0 }) {
             this.count = 0;
 
             // Triangulate. Yeah, this is slow.
@@ -815,7 +815,13 @@ class MarchingCubes extends Mesh {
                         const fx = (x - this.halfsize) / this.halfsize; //+ 1
                         const q = y_offset + x;
 
-                        polygonize(fx - 3, fy + 1, fz + 0.1, q, this.isolation);
+                        polygonize(
+                            fx + offset.x,
+                            fy + offset.y,
+                            fz + offset.z,
+                            q,
+                            this.isolation
+                        );
                     }
                 }
             }
