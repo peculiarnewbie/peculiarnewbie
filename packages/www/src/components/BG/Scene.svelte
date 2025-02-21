@@ -74,8 +74,14 @@
 
     onMount(() => {
         document.addEventListener("pointermove", (e) => {
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
+            const width = window.visualViewport
+                ? window.visualViewport.width
+                : window.innerWidth;
+            const height = window.visualViewport
+                ? window.visualViewport.height
+                : window.innerHeight;
+            const x = e.clientX / width;
+            const y = e.clientY / height;
             const xPos = (x - 0.5) * viewport.current.width;
             const yPos = (y - 0.5) * viewport.current.height;
             lightPos.set({ x: xPos, y: yPos });
