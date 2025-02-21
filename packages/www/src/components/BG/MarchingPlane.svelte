@@ -9,5 +9,6 @@
 </script>
 
 <T is={plane} {...props}>
+    <T.MeshBasicMaterial color="black" />
     {@render children?.({ ref: plane })}
 </T>

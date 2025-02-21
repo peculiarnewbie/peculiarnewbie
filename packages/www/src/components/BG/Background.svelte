@@ -2,7 +2,7 @@
     import Scene from "./Scene.svelte";
     import { Canvas } from "@threlte/core";
 
-    let ballCount = $state(15);
+    let ballCount = $state(10);
     let isolation = $state(80);
     let resolution = $state(35);
 </script>

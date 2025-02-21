@@ -1,12 +1,5 @@
 <script lang="ts" module>
-    import type { AddAxisMap } from "./types";
     import { Vector3 } from "three";
-
-    const map: AddAxisMap = {
-        x: "addPlaneX",
-        y: "addPlaneY",
-        z: "addPlaneZ",
-    } as const;
 
     // reusable for calculating world position of `MarchingCube`s
     const position = new Vector3();
@@ -17,8 +10,7 @@
 <script lang="ts">
     import type { Props } from "@threlte/core";
     import { MarchingCube } from "./MarchingCube";
-    import { MarchingCubes } from "three/examples/jsm/Addons.js";
-    import { MarchingPlane } from "./MarchingPlane";
+    import { MarchingCubes } from "./MarchingCubes";
     import { MeshBasicMaterial } from "three";
     import { T, useTask } from "@threlte/core";
 
@@ -40,8 +32,8 @@
     const marchingCubes = new MarchingCubes(
         defaultResolution,
         material,
-        true,
-        true,
+        false,
+        false,
         20_000
     );
 
@@ -49,6 +41,7 @@
         if (resolution !== marchingCubes.resolution) {
             marchingCubes.init(resolution);
         }
+        marchingCubes;
     });
 
     useTask(() => {
@@ -67,11 +60,11 @@
                         child.color
                     );
                     break;
-                case child instanceof MarchingPlane:
-                    marchingCubes[map[child.axis]](
-                        child.strength,
-                        child.subtract
-                    );
+                    // case child instanceof MarchingPlane:
+                    //     marchingCubes[map[child.axis]](
+                    //         child.strength,
+                    //         child.subtract
+                    //     );
                     break;
             }
         }
