@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { onMount, type Component } from "svelte";
     import Scene from "./Scene.svelte";
     import { Canvas } from "@threlte/core";
 
@@ -7,14 +8,6 @@
     let resolution = $state(35);
 </script>
 
-<div>
-    <Canvas>
-        <Scene {ballCount} {resolution} {isolation} />
-    </Canvas>
-</div>
-
-<style>
-    div {
-        height: 100%;
-    }
-</style>
+<Canvas>
+    <Scene {ballCount} {resolution} {isolation} />
+</Canvas>

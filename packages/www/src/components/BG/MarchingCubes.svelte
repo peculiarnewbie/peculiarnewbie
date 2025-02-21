@@ -19,6 +19,8 @@
         enableUvs?: boolean;
         enableColors?: boolean;
         isolation?: number;
+        offset: { x: number; y: number; z: number };
+        scalarMultiplier: number;
     } & Props<MarchingCubes>;
 
     let {
@@ -50,12 +52,13 @@
             switch (true) {
                 case child instanceof MarchingCube:
                     child.getWorldPosition(position);
+                    position.multiplyScalar(props.scalarMultiplier);
                     position.addScalar(1).multiplyScalar(0.5); // center it
                     marchingCubes.addBall(
                         position.x,
                         position.y,
                         position.z,
-                        child.strength,
+                        child.strength - 0.3 * (props.scalarMultiplier - 1),
                         child.subtract,
                         child.color
                     );
@@ -68,7 +71,7 @@
                     break;
             }
         }
-        marchingCubes.update({ x: -3, y: 0, z: 0 });
+        marchingCubes.update(props.offset);
     });
 
     // cleanup default material if marchingCubes.material has been set to something else

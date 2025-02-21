@@ -9,20 +9,33 @@
     } from "three";
     import { MarchingCube } from "./MarchingCube";
     import { T, useTask } from "@threlte/core";
-    import { PI } from "three/tsl";
-    import MarchingPlane from "./MarchingPlane.svelte";
+    import { interactivity, useViewport } from "@threlte/extras";
+    import { onMount } from "svelte";
+    import { Spring } from "svelte/motion";
 
     type SceneProps = {
         ballCount?: number;
         isolation?: number;
         resolution: number;
     };
-
     let {
         ballCount = 5,
         isolation = 80,
         resolution = 50,
     }: SceneProps = $props();
+
+    // let mousePos = $state({ x: 0, y: 0 });
+    let lightPos = new Spring(
+        { x: 0, y: 0 },
+        { stiffness: 0.08, damping: 0.7 }
+    );
+    let cursorPos = new Spring(
+        { x: 0, y: 0 },
+        { stiffness: 0.15, damping: 0.6 }
+    );
+    let scalarMultiplier = new Spring(1, { stiffness: 0.15, damping: 0.6 });
+    interactivity();
+    let viewport = useViewport();
 
     const randomColor = (): Color => {
         return new Color().setRGB(0.1, 0.05, 0.2 + Math.random() * 0.2);
@@ -31,7 +44,7 @@
     /**
      * creates `count` randomly colored balls that are evenly distributed around a unit circle scaled by `scale`
      */
-    const createBalls = (count: number, scale = 0.5): MarchingCube[] => {
+    const createBalls = (count: number, scale = 0.35): MarchingCube[] => {
         const balls: MarchingCube[] = [];
         const m = (2 * Math.PI) / count;
         for (let i = 0; i < count; i += 1) {
@@ -55,9 +68,28 @@
             ball.position.setY(0.2 * Math.sin(time + i) - 0.5);
             // ball.position.setX(0.1 * Math.random() - 0.5);
             // ball.position.setZ(0.5 * Math.sin(time + i) - 0.5);
-            if (i == 2) ball.position.setX(-0.7);
             i += 1;
         }
+    });
+
+    onMount(() => {
+        document.addEventListener("pointermove", (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            const xPos = (x - 0.5) * viewport.current.width;
+            const yPos = (y - 0.5) * viewport.current.height;
+            lightPos.set({ x: xPos, y: yPos });
+            cursorPos.set({ x: xPos, y: yPos });
+        });
+
+        document.addEventListener("link-hover", (e) => {
+            console.log("hover");
+            scalarMultiplier.set(2);
+        });
+
+        document.addEventListener("link-hover-end", (e) => {
+            scalarMultiplier.set(1);
+        });
     });
 </script>
 
@@ -65,24 +97,25 @@
     makeDefault
     near={0.01}
     position={[0, 2, 0]}
-    zoom={100}
+    zoom={50}
     rotation={[-Math.PI / 2, 0, 0]}
 ></T.OrthographicCamera>
 
 <T.PointLight
-    intensity={3}
-    decay={3}
+    intensity={1}
+    decay={2}
     color={[0.4, 0.4, 1]}
-    position={[0, 1.5, 0]}
+    position={[lightPos.current.x, 1.5, lightPos.current.y]}
 />
-<!-- <T.AmbientLight intensity={2} color={[0.1, 0.1, 0.4]} /> -->
 
-<T.Mesh position={[3, -1, 0]} rotation.x={-Math.PI / 2}>
-    <T.BoxGeometry />
-    <T.MeshBasicMaterial />
-</T.Mesh>
-
-<MarchingCubes enableColors {resolution} {isolation} position={[0, 0.4, 0]}>
+<MarchingCubes
+    enableColors
+    {resolution}
+    {isolation}
+    offset={{ x: cursorPos.current.x, y: 0, z: cursorPos.current.y }}
+    scalarMultiplier={scalarMultiplier.current}
+    position={[0, 0.4, 0]}
+>
     <T.MeshBasicMaterial vertexColors={true} color="white" />
     {#each balls as ball}
         <T is={ball} />
