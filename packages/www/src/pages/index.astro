@@ -127,12 +127,11 @@ const expeciences = await getCollection("experience");
 <script>
     document.querySelectorAll("a").forEach((a) => {
         console.log(a)
-        a.addEventListener("mouseenter", (e) => {
-            console.log(e)
+        a.addEventListener("pointerenter", (e) => {
             const event = new CustomEvent("link-hover");
             document.dispatchEvent(event);
         });
-        a.addEventListener("mouseleave", (e) => {
+        a.addEventListener("pointerleave", (e) => {
             const event = new CustomEvent("link-hover-end");
             document.dispatchEvent(event);
         });

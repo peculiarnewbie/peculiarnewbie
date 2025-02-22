@@ -38,7 +38,9 @@
     let viewport = useViewport();
 
     const randomColor = (): Color => {
-        return new Color().setRGB(0.1, 0.05, 0.2 + Math.random() * 0.2);
+        return new Color()
+            .setRGB(0.1, 0.05, 0.2 + Math.random() * 0.2)
+            .multiplyScalar(0.5);
     };
 
     /**
@@ -48,7 +50,10 @@
         const balls: MarchingCube[] = [];
         const m = (2 * Math.PI) / count;
         for (let i = 0; i < count; i += 1) {
-            const ball = new MarchingCube(randomColor());
+            const ball = new MarchingCube(randomColor()) as MarchingCube & {
+                originalColor: Color;
+            };
+            ball.originalColor = new Color().copy(ball.color);
             const r = m * i;
             const x = Math.cos(r);
             const y = Math.sin(r);
@@ -89,7 +94,6 @@
         });
 
         document.addEventListener("link-hover", (e) => {
-            console.log("hover");
             scalarMultiplier.set(2);
         });
 
@@ -108,8 +112,14 @@
 ></T.OrthographicCamera>
 
 <T.PointLight
-    intensity={1}
+    intensity={0.5 * Math.pow(scalarMultiplier.current, 0.5)}
     decay={2}
+    color={[0.4, 0.4, 1]}
+    position={[lightPos.current.x, 1.5, lightPos.current.y]}
+/>
+
+<T.AmbientLight
+    intensity={0.03}
     color={[0.4, 0.4, 1]}
     position={[lightPos.current.x, 1.5, lightPos.current.y]}
 />

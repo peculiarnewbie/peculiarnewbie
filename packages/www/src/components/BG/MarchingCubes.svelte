@@ -1,5 +1,5 @@
 <script lang="ts" module>
-    import { Vector3 } from "three";
+    import { Color, Vector3 } from "three";
 
     // reusable for calculating world position of `MarchingCube`s
     const position = new Vector3();
@@ -40,6 +40,7 @@
     );
 
     $effect(() => {
+        //@ts-expect-error
         if (resolution !== marchingCubes.resolution) {
             marchingCubes.init(resolution);
         }
@@ -53,6 +54,11 @@
                 case child instanceof MarchingCube:
                     child.getWorldPosition(position);
                     position.multiplyScalar(props.scalarMultiplier);
+
+                    child.color = new Color()
+                        //@ts-expect-error
+                        .copy(child.originalColor)
+                        .multiplyScalar(Math.pow(props.scalarMultiplier, 2));
                     position.addScalar(1).multiplyScalar(0.5); // center it
                     marchingCubes.addBall(
                         position.x,
@@ -62,12 +68,6 @@
                         child.subtract,
                         child.color
                     );
-                    break;
-                    // case child instanceof MarchingPlane:
-                    //     marchingCubes[map[child.axis]](
-                    //         child.strength,
-                    //         child.subtract
-                    //     );
                     break;
             }
         }
