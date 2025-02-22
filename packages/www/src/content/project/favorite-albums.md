@@ -8,6 +8,7 @@ tags:
 image: "project/top-albums.webp"
 url: "https://2024.peculiarnewbie.com/"
 githubUrl: "https://github.com/peculiarnewbie/2024-wrap"
+sort: 3
 ---
 
 Fancy list of favorite albums with autoplay and music video playing for each album

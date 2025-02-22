@@ -1,4 +1,4 @@
-import { glob } from "astro/loaders";
+import { file, glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
 
 const blog = defineCollection({
@@ -23,6 +23,7 @@ const project = defineCollection({
         tags: z.array(z.string()).optional(),
         url: z.string().optional(),
         githubUrl: z.string().optional(),
+        sort: z.number(),
     }),
 });
 
@@ -41,4 +42,16 @@ const experience = defineCollection({
     }),
 });
 
-export const collections = { blog, project, experience };
+const home = defineCollection({
+    loader: glob({
+        base: "./src/content/home",
+        pattern: "**/*.{md,mdx}",
+    }),
+    schema: z.object({
+        name: z.string(),
+        title: z.string(),
+        tagline: z.string(),
+    }),
+});
+
+export const collections = { blog, project, experience, home };
