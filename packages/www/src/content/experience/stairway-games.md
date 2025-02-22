@@ -14,4 +14,4 @@ url: "https://stairwaygames.com/"
 startDate: "2024"
 ---
 
-Developed many tooling and processes to help developers with their workflow. From game telemetry, to unreal http client plugin, to a screenshot automation tool for level designers, I do it all.
+Developed many tooling and processes to help devs with their workflow. From game telemetry, to in-game screenshot automation tool, to a custom dashboard for Perforce x Teamcity x Jira data. I do it all.
