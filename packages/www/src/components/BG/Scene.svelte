@@ -112,10 +112,10 @@
 ></T.OrthographicCamera>
 
 <T.PointLight
-    intensity={0.5 * Math.pow(scalarMultiplier.current, 0.5)}
-    decay={2}
+    intensity={0.35 * Math.pow(scalarMultiplier.current, 0.5)}
+    decay={1.5}
     color={[0.4, 0.4, 1]}
-    position={[lightPos.current.x, 1.5, lightPos.current.y]}
+    position={[lightPos.current.x, 2, lightPos.current.y]}
 />
 
 <T.AmbientLight

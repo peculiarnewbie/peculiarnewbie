@@ -5,7 +5,7 @@
 
     let ballCount = $state(10);
     let isolation = $state(80);
-    let resolution = $state(35);
+    let resolution = $state(40);
 </script>
 
 <Canvas>
