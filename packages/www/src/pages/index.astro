@@ -7,6 +7,7 @@ import { getCollection } from "astro:content";
 import Background from "../components/BG/Background.svelte";
 
 import GithubIcon from "../../public/icons/github-icon.svg";
+import Bolt from "../../public/icons/Bolt.svg";
 import LinkIcon from "../../public/icons/link-icon.svg";
 import Arrow from "../../public/icons/arrow-up-right.svg";
 
@@ -34,10 +35,19 @@ const expeciences = await getCollection("experience");
                         class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between lg:py-24"
                     >
                         <header>
-                            <h1 class="text-5xl font-bold text-neutral-200">
-                                Arif Rahman
-                            </h1>
-                            <p class="text-xl pt-3 text-neutral-200">
+                            <div class="relative w-fit">
+                                <h1
+                                    class="sm:text-5xl text-4xl font-bold text-neutral-200"
+                                >
+                                    Arif Rahman
+                                </h1>
+                                <Bolt
+                                    size={80}
+                                    class="absolute rotate-[20deg] text-2xl font-semibold transition-opacity duration-500 sm:-right-10 sm:-top-2 sm:text-4xl fill-indigo-300 -translate-y-5 translate-x-1 shadow stroke-1 stroke-neutral-800"
+                                    id="bolt"
+                                />
+                            </div>
+                            <p class="sm:text-xl text-lg pt-3 text-neutral-200">
                                 Web and Game Developer
                             </p>
                             <p class="text-neutral-400 pt-4 max-w-60">
@@ -191,5 +201,20 @@ const expeciences = await getCollection("experience");
             const event = new CustomEvent("link-hover-end");
             document.dispatchEvent(event);
         });
+    });
+
+    const boltElement = document.getElementById("bolt");
+
+    document.addEventListener("pointermove", (e) => {
+        const mousePos = [e.clientX, e.clientY];
+        const rect = boltElement!.getBoundingClientRect();
+        const boltPos = [rect.left + 50, rect.top + 50];
+
+        const distance =
+            Math.abs(mousePos[0] - boltPos[0]) +
+            Math.abs(mousePos[1] - boltPos[1]);
+
+        const opacity = 1.5 - distance / 500;
+        boltElement!.style.opacity = opacity.toString();
     });
 </script>
